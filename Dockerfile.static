@@ -1,0 +1,41 @@
+##### BEGIN image.base/Dockerfile/image-header #####
+FROM vcwebio/conteco.image.wrapper AS wrapper
+FROM vcwebio/conteco.external.confluent_cc:5.4.0 AS base
+##### END image.base/Dockerfile/image-header #####
+
+##### BEGIN image.base/Dockerfile/conteco #####
+COPY --from=wrapper /conteco/ /conteco/
+ENTRYPOINT ["/conteco/bin/image/wrapper/entrypoint"]
+##### END image.base/Dockerfile/conteco #####
+
+##### BEGIN image/Dockerfile/conteco #####
+COPY ./conteco/ /conteco/
+RUN chmod -R +x /conteco/bin && rm -rf /conteco/repo
+COPY ./ /conteco/repo/
+##### END image/Dockerfile/conteco #####
+
+##### BEGIN image/Dockerfile/build-instructions #####
+ENV CONTECO_ENTRYPOINT "/etc/confluent/docker/run"
+#COPY ./conteco/configs/etc/kafka/server.properties /etc/kafka/server.properties
+##### END image/Dockerfile/build-instructions #####
+
+##### BEGIN image.base/Dockerfile/env-labels-footer #####
+ENV CONTECO_REALM="vcwebio" \
+    CONTECO_ECOSYSTEM="conteco" \
+    CONTECO_TYPE="confluent_cc" \
+    CONTECO_NAME="sasl" \
+    CONTECO_TAG="5.4.0" \
+    CONTECO_BASE="external.confluent_cc:5.4.0" \
+    CONTECO_BUILD="image-base"
+LABEL io.vcweb.schema-version="1.0" \
+      io.vcweb.realm="vcwebio" \
+      io.vcweb.ecosystem="conteco" \
+      io.vcweb.type="confluent_cc" \
+      io.vcweb.name="sasl" \
+      io.vcweb.tag="5.4.0" \
+      io.vcweb.base="external.confluent_cc:5.4.0" \
+      io.vcweb.build="image-base" \
+      io.vcweb.label="confluent_cc.sasl - ContEco" \
+      io.vcweb.description="ContEco Confluent Control Center image, with SASL authentication." \
+      io.vcweb.docker.cmd.help="docker run vcwebio/conteco.confluent_cc.sasl --help"
+##### END image.base/Dockerfile/env-labels-footer #####

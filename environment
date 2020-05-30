@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+export CONTECO_LABEL="confluent_cc.sasl - ContEco"
+export CONTECO_DESCRIPTION="ContEco Confluent Control Center image, with SASL authentication."
+
+export CONTECO_TYPE="confluent_cc"
+export CONTECO_NAME="sasl"
+export CONTECO_TAG="5.4.0"
+
+export CONTECO_BASE="external.confluent_cc:5.4.0"
+export CONTECO_BUILD="image-base"
