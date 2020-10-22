@@ -9,3 +9,5 @@ export CONTECO_TAG="6.0.0"
 
 export CONTECO_BASE="external.confluent_cc:6.0.0"
 export CONTECO_BUILD="image-base"
+
+export CONTECO_EXTERNAL_IMAGE_NAME="confluentinc/cp-enterprise-control-center:6.0.0"
